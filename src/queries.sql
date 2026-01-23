@@ -27,3 +27,15 @@ WHERE credit_score < 680 AND loan_to_income_ratio > 0.35
 ORDER BY loan_to_income_ratio DESC;
 
 
+-- 3. Delinquency Analysis by Installer and Risk Category
+-- Purpose: See if specific installer partners are bringing in "bad" customers.
+SELECT 
+    installer_partner_id,
+    risk_category,
+    COUNT(loan_id) AS total_loans,
+    -- Delinquency Rate: Percentage of loans that are not "Current"
+    ROUND(CAST(COUNT(CASE WHEN delinquency_bucket != 'Current' THEN 1 END) AS FLOAT) / COUNT(loan_id), 4) AS delinquency_rate
+FROM loan_portfolio
+WHERE loan_id IS NOT NULL -- Only look at actual disbursed loans
+GROUP BY 1, 2
+ORDER BY delinquency_rate DESC;
