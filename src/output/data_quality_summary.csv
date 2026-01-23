@@ -1,0 +1,9 @@
+issue_type,failure_count
+credit_score_out_of_range,10
+invalid_postal_code,3
+invalid_system_size,3
+invalid_email_format,2
+id_duplicate,1
+negative_loan_amount,1
+email_missing,1
+invalid_installation_type,1

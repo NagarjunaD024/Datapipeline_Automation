@@ -1,0 +1,65 @@
+{
+    "summary_metrics": {
+        "total_records_processed": 199,
+        "total_problematic_records": 22,
+        "overall_health_percentage": 88.94
+    },
+    "failures_by_type": [
+        {
+            "issue_type": "credit_score_out_of_range",
+            "failure_count": 10
+        },
+        {
+            "issue_type": "invalid_postal_code",
+            "failure_count": 3
+        },
+        {
+            "issue_type": "invalid_system_size",
+            "failure_count": 3
+        },
+        {
+            "issue_type": "invalid_email_format",
+            "failure_count": 2
+        },
+        {
+            "issue_type": "id_duplicate",
+            "failure_count": 1
+        },
+        {
+            "issue_type": "negative_loan_amount",
+            "failure_count": 1
+        },
+        {
+            "issue_type": "email_missing",
+            "failure_count": 1
+        },
+        {
+            "issue_type": "invalid_installation_type",
+            "failure_count": 1
+        }
+    ],
+    "problematic_application_ids": [
+        "APP016",
+        "APP026",
+        "APP008",
+        "APP014",
+        "APP118",
+        "APP010",
+        "APP027",
+        "APP030",
+        "APP137",
+        "APP167",
+        "APP011",
+        "APP088",
+        "APP193",
+        "APP015",
+        "APP024",
+        "APP021",
+        "APP039",
+        "APP149",
+        "APP071",
+        "APP005",
+        "APP025",
+        "APP017"
+    ]
+}

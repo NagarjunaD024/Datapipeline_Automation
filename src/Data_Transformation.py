@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 class DataTransformer:
     @staticmethod
@@ -37,7 +38,7 @@ class DataTransformer:
             np.nan
         )
         
-        df['processed_at'] = datetime.now()
+        df['processed_at'] = datetime.now(ZoneInfo("Europe/Berlin"))
         return df
 
     @classmethod
