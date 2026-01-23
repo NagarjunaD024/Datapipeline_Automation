@@ -39,3 +39,16 @@ FROM loan_portfolio
 WHERE loan_id IS NOT NULL -- Only look at actual disbursed loans
 GROUP BY 1, 2
 ORDER BY delinquency_rate DESC;
+
+
+-- 4. Performance Tracking: 30/60/90 Day Delinquency Rates
+SELECT 
+    strftime('%Y-%m', disbursement_date) AS disbursement_cohort,
+    COUNT(loan_id) AS cohort_size,
+    ROUND(CAST(COUNT(CASE WHEN days_past_due > 30 THEN 1 END) AS FLOAT) / COUNT(*), 4) AS rate_30_plus,
+    ROUND(CAST(COUNT(CASE WHEN days_past_due > 60 THEN 1 END) AS FLOAT) / COUNT(*), 4) AS rate_60_plus,
+    ROUND(CAST(COUNT(CASE WHEN days_past_due > 90 THEN 1 END) AS FLOAT) / COUNT(*), 4) AS rate_90_plus
+FROM loan_portfolio
+WHERE disbursement_date IS NOT NULL
+GROUP BY 1
+ORDER BY 1 DESC;
