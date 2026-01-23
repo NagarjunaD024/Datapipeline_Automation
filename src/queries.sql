@@ -52,3 +52,19 @@ FROM loan_portfolio
 WHERE disbursement_date IS NOT NULL
 GROUP BY 1
 ORDER BY 1 DESC;
+
+
+-- 5. Installer Performance Ranking (Window Function)
+-- Purpose: Rank installers by total successful funding volume to identify top partners.
+SELECT 
+    installer_partner_id,
+    installation_type,
+    SUM(loan_amount_eur) AS total_funded_amount,
+    -- Window Function: Ranks installers by volume within each installation type
+    RANK() OVER (
+        PARTITION BY installation_type 
+        ORDER BY SUM(loan_amount_eur) DESC
+    ) AS installer_rank_by_type
+FROM loan_portfolio
+WHERE status = 'approved' AND loan_id IS NOT NULL
+GROUP BY 1, 2;
