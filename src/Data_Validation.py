@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import json
+import re
 
 class DataValidator:
     @staticmethod
@@ -41,6 +42,16 @@ class DataValidator:
             # 6. System Size (must be positive if not null)
             if pd.notna(row['system_size_kwp']) and row['system_size_kwp'] <= 0:
                 row_flags['invalid_system_size'] = True
+
+            # 7. Email Validation (The new check)
+            email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+            # We convert to string and trim spaces first
+            email = str(row['customer_email']).strip()
+            if pd.isna(row['customer_email']) or email == "" or email == "nan":
+                row_flags['email_missing'] = True
+            elif not re.match(email_regex, email):
+                row_flags['invalid_email_format'] = True
+
 
             flags.append(json.dumps(row_flags) if row_flags else "{}")
             
