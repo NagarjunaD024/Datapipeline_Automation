@@ -44,11 +44,15 @@ class DataTransformer:
     @classmethod
     def create_portfolio_view(cls, app_df, lms_df):
         """Joins apps and LMS and adds performance metrics."""
+
+        # This ensures declined or pending apps don't show up in the portfolio
+        approved_apps = app_df[app_df['status'] == 'approved'].copy()
+
         # Ensure we only use the latest LMS update per application (if duplicates exist)
         lms_latest = lms_df.sort_values('disbursement_date').drop_duplicates('application_id', keep='last')
         
         portfolio = pd.merge(
-            app_df, 
+            approved_apps, 
             lms_latest, 
             on='application_id', 
             how='left', 
